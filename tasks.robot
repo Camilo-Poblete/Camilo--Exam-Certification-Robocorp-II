@@ -1,18 +1,19 @@
 *** Settings ***
-Documentation   Order all robots from robotsparebin industries
-...             Save the HTML of the receipt in PDF files.
+Documentation   
 ...             
-...             Take a screenshot of the robot and attach it to a PDF file
-...             Compress all received.
+...             
+...             
+...  
+Library         RPA.Archive
+Library         Dialogs
+Library         RPA.Robocloud.Secrets
+Library         RPA.core.notebook          
 Library         RPA.Browser
 Library         RPA.Tables
 Library         RPA.PDF
 Library         RPA.FileSystem
 Library         RPA.HTTP
-Library         RPA.Archive
-Library         Dialogs
-Library         RPA.Robocloud.Secrets
-Library         RPA.core.notebook
+
 
 
 # #Steps- followed.
@@ -26,11 +27,18 @@ Library         RPA.core.notebook
 # 7. Close the website
 
 
+*** Variables ***
+${website_robots}            https://robotsparebinindustries.com/#/robot-order
+
+${output_folder}  ${CURDIR}${/} output
+
+${zip_file}       ${output_folder}${/}pdf_archive.zip
 
 *** Tasks ***
 Order Processing Bot 
     Intializing steps
-    Download the csv file
+    
+    Download csv 
     ${data}=  Read the order file
     Open the website
     Processing the orders  ${data}
@@ -38,11 +46,17 @@ Order Processing Bot
     [Teardown]  Close Browser
 
 
+
+
+
+
+
+
 ***Keywords***
 Open the website
-    ${website}=  Get Secret  websitedata
-    Open Available Browser  ${website}[url]
-    Maximize Browser Window
+    ${website_robots}=  Get Secret  pagedata
+    Open Available Browser  ${website_robots}[url]
+   
 
 
 # +
@@ -101,6 +115,7 @@ Checking Receipt data processed or not
     
     Run Keyword If  '${alert}'=='True'  Close and start Browser prior to another transaction 
 
+
 ***Keywords***
 Processing Receipts in final
     [Arguments]  ${row} 
@@ -122,9 +137,9 @@ Processing the orders
 
 # +
 ***Keywords***
-Download the csv file
-    ${file_url}=  Get Value From User  Please enter the csv file url  https://robotsparebinindustries.com/orders.csv  
-    Download  ${file_url}  orders.csv
+Download csv 
+    ${css_url}=  Get Value From User  Please enter the csv file url  https://robotsparebinindustries.com/orders.csv  
+    Download  ${css_url}  orders.csv
     Sleep  3 seconds
     
     
@@ -132,5 +147,5 @@ Download the csv file
 
 ***Keywords***
 Zip the reciepts folder
-    Archive Folder With Zip  ${CURDIR}${/}reciepts  ${OUTPUT_DIR}${/}reciepts.zip
+    Archive Folder With Zip  ${CURDIR}${/}reciepts  ${OUTPUT_DIR}${/}PDF_archive.zip
 
