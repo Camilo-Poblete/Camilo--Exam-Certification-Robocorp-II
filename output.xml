@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20220928 02:31:28.952" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="c:\Users\56946\Downloads\camilo-exam-2\tasks.robot">
+<test id="s1-t1" name="Download the csv file" line="23">
+<status status="FAIL" starttime="20220928 02:31:30.634" endtime="20220928 02:31:30.636">Task contains no keywords.</status>
+</test>
+<doc>Order robots from robotsparebin industries
+Save the receipt HTML in a pdf file
+Take screenshot of robot and attach in pdf file
+Zip the all reciepts</doc>
+<status status="FAIL" starttime="20220928 02:31:28.960" endtime="20220928 02:31:30.638"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20220928 02:31:29.731" level="WARN">This is a deprecated import that will be removed in favor of RPA.Browser.Selenium</msg>
+<msg timestamp="20220928 02:31:30.545" level="WARN">This is a deprecated import that will be removed in favor of RPA.Robocorp.Vault</msg>
+</errors>
+</robot>

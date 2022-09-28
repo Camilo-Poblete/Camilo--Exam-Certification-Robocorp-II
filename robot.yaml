@@ -1,0 +1,19 @@
+tasks:
+  Order Processing Bot:
+    robotTaskName: Order Processing Bot
+  Footer:
+    robotTaskName: Footer
+  "\xA9 2022 GitHub, Inc.":
+    robotTaskName: "\xA9 2022 GitHub, Inc."
+  Footer navigation:
+    robotTaskName: Footer navigation
+  Term:
+    robotTaskName: Term
+condaConfigFile: conda.yaml
+ignoreFiles:
+- .gitignore
+artifactsDir: output
+PATH:
+- .
+PYTHONPATH:
+- .
