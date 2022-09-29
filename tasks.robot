@@ -13,6 +13,7 @@ Library         RPA.Tables
 Library         RPA.PDF
 Library         RPA.FileSystem
 Library         RPA.HTTP
+Library    OperatingSystem
 
 # #Steps- followed.
 # Here steps followed are :
@@ -45,24 +46,14 @@ Order Processing Bot
 
 
 
-
-
-
-
-
-
-
-
 ***Keywords***
 Open the website
     ${website_robots}=  Get Secret  pagedata
+    Log  ${website_robots}[website_url]
+    
     Open Available Browser  ${website_robots}[website_url]
     
    
-
-
-
-
 ***Keywords***
 Intializing steps   
     Remove File  ${CURDIR}${/}orders.csv
@@ -146,12 +137,11 @@ Processing the orders
 ***Keywords***
 Download csv 
     ${css_url}=  Get Value From User  Please enter the csv file url  https://robotsparebinindustries.com/orders.csv  
-    Download  ${css_url}  orders.csv
+    Download  ${css_url}  orders.csv   overwrite=True
     Sleep  3 seconds
     
     
 # -
-
 
 ***Keywords***
 Zip the reciepts folder
