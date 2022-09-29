@@ -13,17 +13,7 @@ Library         RPA.Tables
 Library         RPA.PDF
 Library         RPA.FileSystem
 Library         RPA.HTTP
-Library    OperatingSystem
-
-# #Steps- followed.
-# Here steps followed are :
-# 1. Open the website
-# 2. Open a dialogbox asking for url for downloading the csv file
-# 3. Use the csv file and use its each row to create the robot details in website
-# 4. After dataentry operations, save the reciept in pdf file format 
-# 5. Take the screenshot of Robot and add the robot to given pdf file.
-# 6. Finally zip all receipts and save in output directory
-# 7. Close the website
+Library         OperatingSystem
 
 
 *** Variables ***
@@ -44,40 +34,27 @@ Order Processing Bot
     Zip the reciepts folder
     [Teardown]  Close Browser
 
+***Keywords***
+Intializing steps   
+    Remove File  ${CURDIR}${/}orders.csv
+    ${robots}=  Does Directory Exist  ${CURDIR}${/}robots
+    ${reciept}=  Does Directory Exist  ${CURDIR}${/}reciepts
+   
+    Run Keyword If  '${reciept}'=='True'  Remove and add empty directory  ${CURDIR}${/}reciepts  ELSE  Create Directory  ${CURDIR}${/}reciepts
+    Run Keyword If  '${robots}'=='True'  Remove and add empty directory  ${CURDIR}${/}robots  ELSE  Create Directory  ${CURDIR}${/}robots
 
-
+***Keywords***
+Remove and add empty directory
+    [Arguments]  ${folder}
+    Remove Directory  ${folder}  True
+    Create Directory  ${folder}
+      
 ***Keywords***
 Open the website
     ${website_robots}=  Get Secret  pagedata
     Log  ${website_robots}[website_url]
     
     Open Available Browser  ${website_robots}[website_url]
-    
-   
-***Keywords***
-Intializing steps   
-    Remove File  ${CURDIR}${/}orders.csv
-    ${reciept_folder}=  Does Directory Exist  ${CURDIR}${/}reciepts
-    ${robots_folder}=  Does Directory Exist  ${CURDIR}${/}robots
-    Run Keyword If  '${reciept_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}reciepts  ELSE  Create Directory  ${CURDIR}${/}reciepts
-    Run Keyword If  '${robots_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}robots  ELSE  Create Directory  ${CURDIR}${/}robots
-
-# +
-***Keywords***
-Remove and add empty directory
-    [Arguments]  ${folder}
-    Remove Directory  ${folder}  True
-    Create Directory  ${folder}
-    
-    
-# -
-
-***Keywords***
-Read the order file
-    [Documentation] 
-    ${orders} =  Read Table From Csv  ${CURDIR}${/}orders.csv  header=True
-    Return From Keyword  ${orders}
-
 
 ***Keywords***
 Data Entry for each order
@@ -96,6 +73,14 @@ Data Entry for each order
 
 
 ***Keywords***
+Read the order file
+    [Documentation] 
+    ${orders} =  Read Table From Csv  ${CURDIR}${/}orders.csv  header=True
+    Return From Keyword  ${orders}
+
+
+
+***Keywords***
 Close and start Browser prior to another transaction
     Close Browser
     Open the website
@@ -110,7 +95,6 @@ Checking Receipt data processed or not
     END
     
     Run Keyword If  '${alert}'=='True'  Close and start Browser prior to another transaction 
-
 
 ***Keywords***
 Processing Receipts in final
@@ -133,15 +117,12 @@ Processing the orders
         Processing Receipts in final  ${row}      
     END  
 
-# +
 ***Keywords***
 Download csv 
     ${css_url}=  Get Value From User  Please enter the csv file url  https://robotsparebinindustries.com/orders.csv  
     Download  ${css_url}  orders.csv   overwrite=True
     Sleep  3 seconds
-    
-    
-# -
+
 
 ***Keywords***
 Zip the reciepts folder
