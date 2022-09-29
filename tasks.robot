@@ -56,7 +56,7 @@ Order Processing Bot
 ***Keywords***
 Open the website
     ${website_robots}=  Get Secret  pagedata
-    Open Available Browser  ${website_robots}[url]
+    Open Available Browser  ${website_robots}[website_url]
     
    
 
@@ -84,7 +84,6 @@ Remove and add empty directory
 ***Keywords***
 Read the order file
     [Documentation] 
-
     ${orders} =  Read Table From Csv  ${CURDIR}${/}orders.csv  header=True
     Return From Keyword  ${orders}
 
@@ -153,7 +152,7 @@ Download csv
     
 # -
 
+
 ***Keywords***
 Zip the reciepts folder
-    Archive Folder With Zip  ${CURDIR}${/}reciepts  ${OUTPUT_DIR}${/}PDF_archive.zip
-
+    Archive Folder With Zip  ${CURDIR}${/}reciepts  ${OUTPUT_DIR}${/}PDF_archive.zip  recursive=True  include=*.pdf  exclude=/.png

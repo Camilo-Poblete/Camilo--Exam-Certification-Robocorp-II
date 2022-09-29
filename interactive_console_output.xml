@@ -1,68 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20220928 22:51:39.668" rpa="false" schemaversion="3">
-<suite id="s1" name="Robot Interactive Console" source="c:\Users\56946\.vscode\extensions\robocorp.robotframework-lsp-1.1.3\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20220929 01:29:19.207" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot Interactive Console" source="c:\Users\56946\.vscode\extensions\robocorp.robotframework-lsp-1.2.0\src\robotframework_ls\vendored\robotframework_interactive\robot_interactive_console.robot">
 <test id="s1-t1" name="Default Task/Test" line="5">
 <kw name="Interpreter Main Loop" library="MainLoop">
-<kw name="Open order page">
-<msg timestamp="20220928 22:51:40.393" level="FAIL">No keyword with name 'Open order page' found.</msg>
-<status status="FAIL" starttime="20220928 22:51:40.393" endtime="20220928 22:51:40.393"/>
+<status status="PASS" starttime="20220929 01:29:19.254" endtime="20220929 01:29:32.115"/>
 </kw>
-<kw name="Request order file URL from user">
-<var>${order_file_url}</var>
-<status status="NOT RUN" starttime="20220928 22:51:40.395" endtime="20220928 22:51:40.395"/>
-</kw>
-<kw name="Get orders">
-<var>${orders}</var>
-<arg>${order_file_url}</arg>
-<status status="NOT RUN" starttime="20220928 22:51:40.396" endtime="20220928 22:51:40.396"/>
-</kw>
-<for flavor="IN">
-<var>${order}</var>
-<value>@{orders}</value>
-<iter>
-<var name="${order}"/>
-<kw name="Close modal">
-<status status="NOT RUN" starttime="20220928 22:51:40.397" endtime="20220928 22:51:40.397"/>
-</kw>
-<kw name="Fill order form">
-<arg>${order}</arg>
-<status status="NOT RUN" starttime="20220928 22:51:40.399" endtime="20220928 22:51:40.399"/>
-</kw>
-<kw name="Preview robot">
-<status status="NOT RUN" starttime="20220928 22:51:40.400" endtime="20220928 22:51:40.400"/>
-</kw>
-<kw name="Take screenshot of the robot image">
-<var>${screenshot}</var>
-<arg>${order}[Order number]</arg>
-<status status="NOT RUN" starttime="20220928 22:51:40.402" endtime="20220928 22:51:40.402"/>
-</kw>
-<kw name="Wait Until Keyword Succeeds" library="BuiltIn">
-<arg>5x</arg>
-<arg>0.5 sec</arg>
-<arg>Submit order</arg>
-<doc>Runs the specified keyword and retries if it fails.</doc>
-<status status="NOT RUN" starttime="20220928 22:51:40.402" endtime="20220928 22:51:40.402"/>
-</kw>
-<kw name="Create receipt PDF with robot preview image">
-<arg>${order}[Order number]</arg>
-<arg>${screenshot}</arg>
-<status status="NOT RUN" starttime="20220928 22:51:40.403" endtime="20220928 22:51:40.404"/>
-</kw>
-<kw name="Order new robot">
-<status status="NOT RUN" starttime="20220928 22:51:40.405" endtime="20220928 22:51:40.405"/>
-</kw>
-<status status="NOT RUN" starttime="20220928 22:51:40.396" endtime="20220928 22:51:40.405"/>
-</iter>
-<status status="NOT RUN" starttime="20220928 22:51:40.396" endtime="20220928 22:51:40.405"/>
-</for>
-<kw name="Create ZIP file of all receipts">
-<status status="NOT RUN" starttime="20220928 22:51:40.407" endtime="20220928 22:51:40.407"/>
-</kw>
-<status status="PASS" starttime="20220928 22:51:39.706" endtime="20220928 22:51:42.305"/>
-</kw>
-<status status="PASS" starttime="20220928 22:51:39.705" endtime="20220928 22:51:42.305"/>
+<status status="PASS" starttime="20220929 01:29:19.254" endtime="20220929 01:29:32.115"/>
 </test>
-<status status="PASS" starttime="20220928 22:51:39.670" endtime="20220928 22:51:42.306"/>
+<status status="PASS" starttime="20220929 01:29:19.207" endtime="20220929 01:29:32.115"/>
 </suite>
 <statistics>
 <total>
