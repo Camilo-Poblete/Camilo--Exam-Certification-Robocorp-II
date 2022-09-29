@@ -8,13 +8,11 @@ Library         RPA.Archive
 Library         Dialogs
 Library         RPA.Robocloud.Secrets
 Library         RPA.core.notebook          
-Library         RPA.Browser
+Library         RPA.Browser.Selenium
 Library         RPA.Tables
 Library         RPA.PDF
 Library         RPA.FileSystem
 Library         RPA.HTTP
-
-
 
 # #Steps- followed.
 # Here steps followed are :
@@ -52,12 +50,26 @@ Order Processing Bot
 
 
 
+
+
+
 ***Keywords***
 Open the website
     ${website_robots}=  Get Secret  pagedata
     Open Available Browser  ${website_robots}[url]
+    
    
 
+
+
+
+***Keywords***
+Intializing steps   
+    Remove File  ${CURDIR}${/}orders.csv
+    ${reciept_folder}=  Does Directory Exist  ${CURDIR}${/}reciepts
+    ${robots_folder}=  Does Directory Exist  ${CURDIR}${/}robots
+    Run Keyword If  '${reciept_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}reciepts  ELSE  Create Directory  ${CURDIR}${/}reciepts
+    Run Keyword If  '${robots_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}robots  ELSE  Create Directory  ${CURDIR}${/}robots
 
 # +
 ***Keywords***
@@ -69,19 +81,13 @@ Remove and add empty directory
     
 # -
 
-
-***Keywords***
-Intializing steps   
-    Remove File  ${CURDIR}${/}orders.csv
-    ${reciept_folder}=  Does Directory Exist  ${CURDIR}${/}reciepts
-    ${robots_folder}=  Does Directory Exist  ${CURDIR}${/}robots
-    Run Keyword If  '${reciept_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}reciepts  ELSE  Create Directory  ${CURDIR}${/}reciepts
-    Run Keyword If  '${robots_folder}'=='True'  Remove and add empty directory  ${CURDIR}${/}robots  ELSE  Create Directory  ${CURDIR}${/}robots
-
 ***Keywords***
 Read the order file
-    ${data}=  Read Table From Csv  ${CURDIR}${/}orders.csv  header=True
-    Return From Keyword  ${data}
+    [Documentation] 
+
+    ${orders} =  Read Table From Csv  ${CURDIR}${/}orders.csv  header=True
+    Return From Keyword  ${orders}
+
 
 ***Keywords***
 Data Entry for each order
@@ -118,13 +124,15 @@ Checking Receipt data processed or not
 
 ***Keywords***
 Processing Receipts in final
-    [Arguments]  ${row} 
+    [Arguments]  ${order_number} 
     Sleep  5 seconds
     ${reciept_data}=  Get Element Attribute  //div[@id="receipt"]  outerHTML
-    Html To Pdf  ${reciept_data}  ${CURDIR}${/}reciepts${/}${row}[Order number].pdf
-    Screenshot  //div[@id="robot-preview-image"]  ${CURDIR}${/}robots${/}${row}[Order number].png 
-    Add Watermark Image To Pdf  ${CURDIR}${/}robots${/}${row}[Order number].png  ${CURDIR}${/}reciepts${/}${row}[Order number].pdf  ${CURDIR}${/}reciepts${/}${row}[Order number].pdf 
+    Html To Pdf  ${reciept_data}  ${CURDIR}${/}reciepts${/}${order_number}[Order number].pdf
+    Screenshot  //div[@id="robot-preview-image"]  ${CURDIR}${/}robots${/}${order_number}[Order number].png 
+    Set Local Variable    ${file_path}    ${CURDIR}${/}robot_preview_image_${order_number}.png
+    Add Watermark Image To Pdf  ${CURDIR}${/}robots${/}${order_number}[Order number].png  ${CURDIR}${/}reciepts${/}${order_number}[Order number].pdf  ${CURDIR}${/}reciepts${/}${order_number}[Order number].pdf 
     Click Button  //button[@id="order-another"]
+    [Return]    ${file_path}
 
 ***Keywords***
 Processing the orders
